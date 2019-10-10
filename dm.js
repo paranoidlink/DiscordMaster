@@ -2,7 +2,9 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const guild = new Discord.Guild();
 const config = require("./config.json");
- 
+const { promisify } = require('util');
+const sleep = promisify(setTimeout);
+
 client.on("message", async message => {
     if (message.author.bot) return;
     if (message.content.indexOf(config.prefix) !== 0) return;
@@ -56,11 +58,23 @@ client.on("message", async message => {
 
         }]
     })
-        console.log(newRole);
-        message.guild.channels.create(textChannelName, {type : 'text', parent : catagory.id});
-        message.guild.channels.create(voiceChannelName, {type : 'voice', parent : catagory.id});
+        const text = await message.guild.channels.create(textChannelName, {type : 'text', parent : catagory.id});
+        const voice = await message.guild.channels.create(voiceChannelName, {type : 'voice', parent : catagory.id});
         message.channel.send(`Successfully created ${newRole.toString()} and the channels to go with it`);
+        if (message.guild.id === "631193286278774806"){
+           await sleep(15000);
+            newRole.delete();
+            catagory.delete();
+            await sleep(100);
+            text.delete();
+            voice.delete();
+        } 
     }
+    if (command === "roll"){
+        let [dice, modifier = 0] = args;
+        let result = Math.floor(Math.random()* dice.match(/\d+/)[0]) + parseInt(modifier)
+        message.channel.send(result);
+        }
   });
  
 
