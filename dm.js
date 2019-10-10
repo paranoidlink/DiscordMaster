@@ -43,17 +43,15 @@ client.on("message", async message => {
                     hoist : templateRole.hoist
             }
             })
-       .then(role => console.log(`created new role with name ${role.name} and copied permissions from ${template}`))
         .catch(console.error);
         const everyone = message.guild.id;
-        let newRoles =  message.guild.roles.find(vrole => vrole.name === roleName);
         const catagory = await message.guild.channels.create(catagoryName, {type : 'category',
         permissionOverwrites : [{
             id: everyone,
             deny : ['VIEW_CHANNEL'],
         },
         {
-            id : newRoles.id,
+            id : newRole.id,
             allow : ['VIEW_CHANNEL']
 
         }]
@@ -61,7 +59,7 @@ client.on("message", async message => {
         console.log(newRole);
         message.guild.channels.create(textChannelName, {type : 'text', parent : catagory.id});
         message.guild.channels.create(voiceChannelName, {type : 'voice', parent : catagory.id});
-        message.channel.send(`Successfully created ${newRoles.toString()} and the channels to go with it`);
+        message.channel.send(`Successfully created ${newRole.toString()} and the channels to go with it`);
     }
   });
  
