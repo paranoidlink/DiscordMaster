@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+    node:
+      container_name: discordmaster
+      image: discordmaster:latest
+      restart: unless-stopped
+      networks:
+        - webproxy
+        
+networks:
+  webproxy:
+    external:
+      name: webproxy
