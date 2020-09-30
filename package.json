@@ -1,12 +1,12 @@
 {
-    "name": "Discord-Master",
+    "name": "discord-master",
     "version": "1.0.0",
     "description": "Bot For managing D&D Discord",
     "main": "dm.js",
     "author": "Ben",
     "dependencies": {
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
-        "discord.js": "github:discordjs/discord.js",
+        "discord.js": "^12.3.1",
         "enmap": "^5.2.0",
         "winston": "^3.2.1"
     }

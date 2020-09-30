@@ -3,7 +3,7 @@ exports.run = async (client, message, args, guild) => {
     const sleep = promisify(setTimeout);
     if (!["176476272980000768", "189835256273043456", "151490253692076032"].includes(message.author.id)) return;
     let [roleName, template, catagoryName, textChannelName, voiceChannelName] = args;
-    let templateRole = message.guild.roles.find(role => role.name === template);
+    let templateRole = message.guild.roles.cache.find(role => role.name === template);
     const colors = [
         'AQUA',
         'GREEN',
@@ -27,11 +27,11 @@ exports.run = async (client, message, args, guild) => {
     const n = Math.floor(Math.random() *colors.length);
     const newRole = await message.guild.roles.create({
         data: {
-                name: roleName,
-                permissions: templateRole.permissions,
-                color : colors[n],
-                mentionable : templateRole.mentionable,
-                hoist : templateRole.hoist
+            name: roleName,
+            permissions: templateRole.permissions,
+            color : colors[n],
+            mentionable : templateRole.mentionable,
+            hoist : templateRole.hoist
         }
         })
     .catch(console.error);
